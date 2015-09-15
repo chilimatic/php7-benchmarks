@@ -8,12 +8,16 @@
  * File: index.php
  */
 
-Trait itsATrap {
+/**
+ * Class itsATrap
+ */
+trait itsATrap {
     public $string = '';
 }
 
-create_function();
-
+/**
+ * Class anotherTrait
+ */
 trait anotherTrait {
     public $key;
 
@@ -23,19 +27,28 @@ trait anotherTrait {
     }
 }
 
+/**
+ * Class TraitWrapper
+ */
 class TraitWrapper {
     use itsATrap;
 }
 
-$anoClass = (new class() extends TraitWrapper{
-    public function thereWillBeCode(){
+/**
+ * extend an existing class
+ */
+$anoClass = new class() extends TraitWrapper{
+    private function thereWillBeCode(){
         return 'test';
     }
-});
+};
 
+/**
+ * reflection example
+ */
 $test = new ReflectionClass($anoClass);
 $method = $test->getMethod('thereWillBeCode');
-$closure = $method->setAccessible();
+$closure = $method->setAccessible(true);
 
 
 
@@ -76,7 +89,7 @@ for ($i = 0; $i < 12 ; $i++) {
     echo $array[$i]->getA();
 }
 
-$newDynamicProxy = new class() extends stdClass {
+$newDynamicProxy = new class() {
 
     /**
      * @var entity $entity
@@ -115,6 +128,9 @@ $newDynamicProxy = new class() extends stdClass {
         return call_user_func_array($this->virtualCall[$name], $arguments);
     }
 };
+
+
+interface proxy {}
 
 class entity {
     /**
